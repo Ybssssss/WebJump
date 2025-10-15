@@ -8,26 +8,40 @@
     <link rel="stylesheet" href="TemplateData/style.css">
 
     <style>
-      html, body { margin: 0; height: 100%; overflow: hidden; background: #000; }
-      /* 容器铺满并居中 */
-      #unity-container {
+      html, body { margin:0; height:100%; overflow:hidden; background:#000; }
+    
+      /* 让容器真正铺满并居中内部内容 */
+      #unity-container,
+      #unity-container.unity-desktop {
         position: fixed !important;
         inset: 0 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         background: #000 !important;
+        width: auto !important;
+        height: auto !important;
       }
-      /* 画布按 9:16 比例自适应（横屏时左右留黑边，不拉伸） */
+    
+      /* 画布：用高度填满窗口，高度定，宽度随 9:16 比例自适应 */
       #unity-canvas {
-        width: 100vw !important;
         height: 100vh !important;
-        aspect-ratio: 9 / 16;
-        max-height: 100vh;
-        max-width: calc(100vh * 9 / 16);
-        object-fit: contain;
-        display: block;
+        width: auto !important;               /* 关键：由高度和比例推导宽度 */
+        aspect-ratio: 9 / 16;                 /* 固定竖屏比例 */
+        max-height: 100vh !important;
+        max-width: 100vw !important;
+        display: block !important;
+        margin: 0 auto !important;
+    
+        /* 彻底取消模板里可能的绝对定位与 transform，避免偏移到左侧 */
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
       }
+    
+      /* 不需要的底部栏避免占位 */
+      #unity-footer { display: none !important; }
     </style>
   </head>
   <body>
