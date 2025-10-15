@@ -6,6 +6,25 @@
     <title>Unity Web Player | Sketch-Jump-main</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+
+    <style>
+      html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+      #unity-container {
+        position: fixed; inset: 0;
+        display: flex; align-items: center; justify-content: center;
+        background: #000; /* 横屏时左右黑边更好看 */
+      }
+      #unity-canvas {
+        width: 100vw;
+        height: 100dvh;               /* 比 100vh 更适配移动端 */
+        aspect-ratio: 9 / 16;         /* 固定竖屏比例 */
+        max-height: 100dvh;
+        max-width: calc(100dvh * 9 / 16);
+        object-fit: contain;
+      }
+      /* （可选）隐藏默认全屏按钮，避免进全屏后被强制横屏：
+      #unity-fullscreen-button { display: none !important; } */
+    </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
