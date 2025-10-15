@@ -6,6 +6,29 @@
     <title>Unity Web Player | Sketch-Jump-main</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #000; }
+      /* 容器铺满并居中 */
+      #unity-container {
+        position: fixed !important;
+        inset: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #000 !important;
+      }
+      /* 画布按 9:16 比例自适应（横屏时左右留黑边，不拉伸） */
+      #unity-canvas {
+        width: 100vw !important;
+        height: 100vh !important;
+        aspect-ratio: 9 / 16;
+        max-height: 100vh;
+        max-width: calc(100vh * 9 / 16);
+        object-fit: contain;
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
