@@ -8,23 +8,42 @@
     <link rel="stylesheet" href="TemplateData/style.css">
 
     <style>
-      html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-      #unity-container {
-        position: fixed; inset: 0;
-        display: flex; align-items: center; justify-content: center;
-        background: #000; /* 横屏时左右黑边更好看 */
+      html, body {
+        margin: 0; height: 100%; overflow: hidden;
+        background: #000; /* 视口周围也设为黑色，避免白边 */
       }
-      #unity-canvas {
-        width: 100vw;
-        height: 100dvh;               /* 比 100vh 更适配移动端 */
-        aspect-ratio: 9 / 16;         /* 固定竖屏比例 */
+    
+      /* 覆盖模板对“桌面模式”的固定宽高盒子 */
+      #unity-container,
+      #unity-container.unity-desktop,
+      .unity-desktop #unity-container {
+        position: fixed !important;
+        inset: 0 !important;           /* 四边贴满窗口 */
+        width: auto !important;
+        height: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #000 !important;   /* 背景黑，横屏时左右黑边 */
+      }
+    
+      /* 画布按 9:16 比例等比铺满可视区（覆盖模板对 canvas 的固定尺寸） */
+      #unity-canvas,
+      .unity-desktop #unity-canvas,
+      .unity-mobile #unity-canvas {
+        width: 100vw !important;
+        height: 100dvh !important;     /* 移动端更稳的视口高度 */
+        aspect-ratio: 9 / 16;
         max-height: 100dvh;
         max-width: calc(100dvh * 9 / 16);
         object-fit: contain;
+        display: block;
       }
-      /* （可选）隐藏默认全屏按钮，避免进全屏后被强制横屏：
-      #unity-fullscreen-button { display: none !important; } */
+    
+      /* 可选：隐藏底部那条带全屏按钮的 footer，避免影响布局 */
+      #unity-footer { display: none !important; }
     </style>
+    
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
