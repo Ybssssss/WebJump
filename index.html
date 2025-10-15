@@ -6,48 +6,10 @@
     <title>Unity Web Player | Sketch-Jump-main</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-
-    <style>
-      html, body {
-        margin: 0; height: 100%; overflow: hidden;
-        background: #000; /* 视口周围也设为黑色，避免白边 */
-      }
-    
-      /* 覆盖模板对“桌面模式”的固定宽高盒子 */
-      #unity-container,
-      #unity-container.unity-desktop,
-      .unity-desktop #unity-container {
-        position: fixed !important;
-        inset: 0 !important;           /* 四边贴满窗口 */
-        width: auto !important;
-        height: auto !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: #000 !important;   /* 背景黑，横屏时左右黑边 */
-      }
-    
-      /* 画布按 9:16 比例等比铺满可视区（覆盖模板对 canvas 的固定尺寸） */
-      #unity-canvas,
-      .unity-desktop #unity-canvas,
-      .unity-mobile #unity-canvas {
-        width: 100vw !important;
-        height: 100dvh !important;     /* 移动端更稳的视口高度 */
-        aspect-ratio: 9 / 16;
-        max-height: 100dvh;
-        max-width: calc(100dvh * 9 / 16);
-        object-fit: contain;
-        display: block;
-      }
-    
-      /* 可选：隐藏底部那条带全屏按钮的 footer，避免影响布局 */
-      #unity-footer { display: none !important; }
-    </style>
-    
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=1080 height=1920 tabindex="-1"></canvas>
+      <canvas id="unity-canvas" width=454 height=806 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
