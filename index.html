@@ -6,29 +6,10 @@
     <title>Unity Web Player | Sketch-Jump-main</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-    <style>
-      /* 全屏时，容器充满屏幕并把内容居中 */
-      #unity-container:fullscreen {
-        display: grid !important;
-        place-items: center !important;
-        background: #000 !important;
-      }
-    
-      /* 全屏时，canvas 按 9:16 等比，取“以高为准”填满 */
-      #unity-container:fullscreen #unity-canvas {
-        height: 100vh !important;
-        width: min(calc(100vh * 9 / 16), 100vw) !important;
-        aspect-ratio: 9 / 16 !important;
-        position: static !important;
-        transform: none !important;
-        left: auto !important; top: auto !important;
-        display: block !important;
-      }
-    </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=1080 height=1920 tabindex="-1"></canvas>
+      <canvas id="unity-canvas" width=540 height=960 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -71,12 +52,12 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Web1080.loader.js";
+      var loaderUrl = buildUrl + "/Web540.loader.js";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/Web1080.data",
-        frameworkUrl: buildUrl + "/Web1080.framework.js",
-        codeUrl: buildUrl + "/Web1080.wasm",
+        dataUrl: buildUrl + "/Web540.data",
+        frameworkUrl: buildUrl + "/Web540.framework.js",
+        codeUrl: buildUrl + "/Web540.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Sketch-Jump-main",
@@ -117,8 +98,8 @@
 
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-        canvas.style.width = "1080px";
-        canvas.style.height = "1920px";
+        canvas.style.width = "540px";
+        canvas.style.height = "960px";
       }
 
       document.querySelector("#unity-loading-bar").style.display = "block";
@@ -130,13 +111,9 @@
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 document.querySelector("#unity-loading-bar").style.display = "none";
-                const fsBtn = document.querySelector("#unity-fullscreen-button");
-                if (fsBtn) {
-                  fsBtn.onclick = () => {
-                    const root = document.getElementById('unity-container');
-                    if (root.requestFullscreen) root.requestFullscreen();
-                  };
-                }
+                document.querySelector("#unity-fullscreen-button").onclick = () => {
+                  unityInstance.SetFullscreen(1);
+                };
 
               }).catch((message) => {
                 alert(message);
