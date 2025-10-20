@@ -6,6 +6,25 @@
     <title>Unity Web Player | Sketch-Jump-main</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+      /* 全屏时，容器充满屏幕并把内容居中 */
+      #unity-container:fullscreen {
+        display: grid !important;
+        place-items: center !important;
+        background: #000 !important;
+      }
+    
+      /* 全屏时，canvas 按 9:16 等比，取“以高为准”填满 */
+      #unity-container:fullscreen #unity-canvas {
+        height: 100vh !important;
+        width: min(calc(100vh * 9 / 16), 100vw) !important;
+        aspect-ratio: 9 / 16 !important;
+        position: static !important;
+        transform: none !important;
+        left: auto !important; top: auto !important;
+        display: block !important;
+      }
+    </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -111,9 +130,13 @@
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 document.querySelector("#unity-loading-bar").style.display = "none";
-                document.querySelector("#unity-fullscreen-button").onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
+                const fsBtn = document.querySelector("#unity-fullscreen-button");
+                if (fsBtn) {
+                  fsBtn.onclick = () => {
+                    const root = document.getElementById('unity-container');
+                    if (root.requestFullscreen) root.requestFullscreen();
+                  };
+                }
 
               }).catch((message) => {
                 alert(message);
